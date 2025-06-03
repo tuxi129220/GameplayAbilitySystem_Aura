@@ -14,8 +14,8 @@
 struct FAuraGameplayTags
 {
 public:
-	static const FAuraGameplayTags& Get() { return GameplayTags;}
-	static void InitializeNativeGameplayTags();
+    static const FAuraGameplayTags& Get() { return GameplayTags;}
+    static void InitializeNativeGameplayTags();
 
 	FGameplayTag Attributes_Primary_Strength;
 	FGameplayTag Attributes_Primary_Intelligence;
@@ -33,6 +33,13 @@ public:
 	FGameplayTag Attributes_Secondary_MaxHealth;
 	FGameplayTag Attributes_Secondary_MaxMana;
 
+	FGameplayTag Attributes_Resistance_Fire;
+	FGameplayTag Attributes_Resistance_Lightning;
+	FGameplayTag Attributes_Resistance_Arcane;
+	FGameplayTag Attributes_Resistance_Physical;
+
+	FGameplayTag Attributes_Meta_IncomingXP;
+
 	FGameplayTag InputTag_LMB;
 	FGameplayTag InputTag_RMB;
 	FGameplayTag InputTag_1;
@@ -41,7 +48,31 @@ public:
 	FGameplayTag InputTag_4;
 
 	FGameplayTag Damage;
+	FGameplayTag Damage_Fire;
+	FGameplayTag Damage_Lightning;
+	FGameplayTag Damage_Arcane;
+	FGameplayTag Damage_Physical;
+
+	FGameplayTag Abilities_Attack;
+	FGameplayTag Abilities_Summon;
+	
+	FGameplayTag Abilities_Fire_FireBolt;
+
+	FGameplayTag Cooldown_Fire_FireBolt;
+
+	FGameplayTag CombatSocket_Weapon;
+	FGameplayTag CombatSocket_RightHand;
+	FGameplayTag CombatSocket_LeftHand;
+	FGameplayTag CombatSocket_Tail;
+
+	FGameplayTag Montage_Attack_1;
+	FGameplayTag Montage_Attack_2;
+	FGameplayTag Montage_Attack_3;
+	FGameplayTag Montage_Attack_4;
+
+	TMap<FGameplayTag, FGameplayTag> DamageTypesToResistances;
+
 	FGameplayTag Effects_HitReact;
 private:
-	static FAuraGameplayTags GameplayTags;
+    static FAuraGameplayTags GameplayTags;
 };

@@ -13,12 +13,11 @@ UMMC_MaxMana::UMMC_MaxMana()
 	IntDef.bSnapshot = false;
 
 	RelevantAttributesToCapture.Add(IntDef);
-	
 }
 
 float UMMC_MaxMana::CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const
 {
-	//Gather tags from source and target
+	// Gather tags from source and target
 	const FGameplayTagContainer* SourceTags = Spec.CapturedSourceTags.GetAggregatedTags();
 	const FGameplayTagContainer* TargetTags = Spec.CapturedTargetTags.GetAggregatedTags();
 
@@ -26,12 +25,15 @@ float UMMC_MaxMana::CalculateBaseMagnitude_Implementation(const FGameplayEffectS
 	EvaluationParameters.SourceTags = SourceTags;
 	EvaluationParameters.TargetTags = TargetTags;
 
-	float Int = 0.0f;
+	float Int = 0.f;
 	GetCapturedAttributeMagnitude(IntDef, Spec, EvaluationParameters, Int);
-	Int = FMath::Max(Int, 0.0f);
+	Int = FMath::Max<float>(Int, 0.f);
 
-	ICombatInterface* CombatInterface = Cast<ICombatInterface>(Spec.GetContext().GetSourceObject());
-	const int32 PlayerLevel = CombatInterface->GetPlayerLevel();
-
-	return 50.f +2.5f * Int + 15.f * PlayerLevel;
+	int32 PlayerLevel = 1;
+	if (Spec.GetContext().GetSourceObject()->Implements<UCombatInterface>())
+	{
+		PlayerLevel = ICombatInterface::Execute_GetPlayerLevel(Spec.GetContext().GetSourceObject());
+	}
+	
+	return 50.f + 2.5f * Int + 15.f * PlayerLevel;
 }
